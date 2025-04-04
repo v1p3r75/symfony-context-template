@@ -4,7 +4,7 @@ namespace App\Domain\User\UseCase\Register;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class CreateUserDTO
+class CreateUserRequestDTO
 {
     #[Assert\NotBlank]
     #[Assert\Length(min: 4)]

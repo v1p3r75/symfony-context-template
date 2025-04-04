@@ -58,7 +58,6 @@ abstract class BaseResponse implements JsonSerializable
         $jsonData = [
             'status' => $this->getStatusCode(),
             'message' => $this->getMessage(),
-            'data' => []
         ];
 
         if ($this->isSuccess()) {

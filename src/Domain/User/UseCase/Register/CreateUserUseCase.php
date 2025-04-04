@@ -18,7 +18,7 @@ readonly class CreateUserUseCase
     ){
 
     }
-    public function execute(CreateUserDTO $request): UserResponseDTO
+    public function execute(CreateUserRequestDTO $request): UserResponseDTO
     {
         $response = new UserResponseDTO();
 
