@@ -2,25 +2,24 @@
 
 namespace App\Domain\User\UseCase\Register;
 
-use Symfony\Component\Validator\Constraints\EqualTo;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints as Assert;
 
-readonly class CreateUserDTO
+class CreateUserDTO
 {
-    #[NotBlank]
-    #[Length(min: 4)]
-    public string $username;
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 4)]
+    public ?string $username = null;
 
-    #[NotBlank]
-    public string $email;
+    #[Assert\NotBlank]
+    #[Assert\Email]
+    public ?string $email = null;
 
-    #[NotBlank]
-    #[Length(min: 6, max: 255)]
-    public string $password;
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 6, max: 255)]
+    public ?string $password = null;
 
-    #[NotBlank]
-    #[EqualTo(propertyPath: 'password')]
-    public string $passwordConfirmation;
+    #[Assert\NotBlank]
+    #[Assert\EqualTo(propertyPath: 'password')]
+    public ?string $passwordConfirmation = null;
 
 }

@@ -7,14 +7,14 @@ use App\Domain\User\Repository\UserRepository;
 use App\Domain\User\Response\UserResponseDTO;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 readonly class CreateUserUseCase
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
         private UserRepository $userRepository,
-        private UserPasswordHasher $userPasswordHasher,
+        private UserPasswordHasherInterface $userPasswordHasher,
     ){
 
     }
