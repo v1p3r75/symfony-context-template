@@ -2,20 +2,46 @@
 
 namespace App\Domain\Shared\Response;
 
-class BaseResponse
+use JsonSerializable;
+
+abstract class BaseResponse implements JsonSerializable
 {
-    public int $statusCode = 200;
+    private int $statusCode = 200;
 
-    public string $message = 'Successfully';
+    private string $message = 'Successfully';
 
-    public array $errors = [];
+    private array $errors = [];
+
+    public function getStatusCode(): int
+    {
+        return $this->statusCode;
+    }
+
+    public function setStatusCode(int $statusCode): void
+    {
+        $this->statusCode = $statusCode;
+
+        if (!$this->isSuccess()) {
+            $this->setMessage('An error occurred');
+        }
+    }
+
+    public function getMessage(): string
+    {
+        return $this->message;
+    }
+
+    public function setMessage(string $message): void
+    {
+        $this->message = $message;
+    }
 
     public function isSuccess(): bool
     {
         return $this->statusCode >= 200 && $this->statusCode < 300;
     }
 
-    public function addError(string $name, string $detail): void
+    public function setError(string $name, string $detail): void
     {
         $this->errors[$name] = $detail;
     }
@@ -24,5 +50,25 @@ class BaseResponse
     {
         return $this->errors;
     }
+
+    abstract public function getData(): array;
+
+    public function jsonSerialize() : array
+    {
+        $jsonData = [
+            'status' => $this->getStatusCode(),
+            'message' => $this->getMessage(),
+            'data' => []
+        ];
+
+        if ($this->isSuccess()) {
+            $jsonData['data'] = $this->getData();
+        } else {
+            $jsonData['errors'] = $this->getErrors();
+        }
+
+        return $jsonData;
+    }
+
 
 }

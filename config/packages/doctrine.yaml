@@ -23,7 +23,7 @@ doctrine:
                 is_bundle: false
                 dir: '%kernel.project_dir%/src/Domain/User/Entity'
                 prefix: 'App\Domain\User\Entity'
-                alias: Users
+                alias: User
         controller_resolver:
             auto_mapping: false
 

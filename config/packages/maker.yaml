@@ -1,0 +1,6 @@
+# config/packages/maker.yaml
+when@dev:
+  maker:
+    root_namespace: 'App\Domain'
+    generate_final_classes: true
+    generate_final_entities: false
