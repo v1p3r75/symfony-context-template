@@ -22,7 +22,7 @@ readonly class GetUserUseCase
         $user = $this->userRepository->findOneBy(["id" => $request->id]);
 
         if (!$user) {
-            $response->setStatusCode(Response::HTTP_NOT_FOUND);
+            $response->setNotFoundStatus();
             $response->setMessage("User not found");
             return $response;
         }

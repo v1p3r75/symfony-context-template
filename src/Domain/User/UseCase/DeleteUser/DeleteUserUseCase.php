@@ -24,7 +24,7 @@ class DeleteUserUseCase
         $user = $this->userRepository->findOneBy(['id' => $deleteUserRequestDTO->id]);
 
         if (!$user) {
-            $response->setStatusCode(Response::HTTP_NOT_FOUND);
+            $response->setNotFoundStatus();
             $response->setMessage("user not found");
 
             return $response;

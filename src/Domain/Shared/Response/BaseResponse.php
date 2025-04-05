@@ -3,6 +3,7 @@
 namespace App\Domain\Shared\Response;
 
 use JsonSerializable;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class BaseResponse implements JsonSerializable
 {
@@ -49,6 +50,11 @@ abstract class BaseResponse implements JsonSerializable
     public function getErrors(): array
     {
         return $this->errors;
+    }
+
+    public function setNotFoundStatus(): void
+    {
+        $this->statusCode = Response::HTTP_NOT_FOUND;
     }
 
     abstract public function getData(): array;
