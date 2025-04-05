@@ -3,11 +3,13 @@
 namespace App\Domain\User\UseCase\Register;
 
 use App\Domain\User\Entity\User;
+use App\Domain\User\Message\EmailVerificationMessage;
 use App\Domain\User\Repository\UserRepository;
 use App\Domain\User\Response\UserResponseDTO;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\Exception\ExceptionInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 readonly class CreateUserUseCase
@@ -16,10 +18,14 @@ readonly class CreateUserUseCase
         private EntityManagerInterface $entityManager,
         private UserRepository $userRepository,
         private UserPasswordHasherInterface $userPasswordHasher,
-        private LoggerInterface $logger
+        private MessageBusInterface $messageBus,
     ){
 
     }
+
+    /**
+     * @throws ExceptionInterface
+     */
     public function execute(CreateUserRequestDTO $request): UserResponseDTO
     {
         $response = new UserResponseDTO();
@@ -43,9 +49,7 @@ readonly class CreateUserUseCase
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-        $this->logger->info(sprintf('Created user with id: %s', $user->getId()));
-
-        // You can't dispatch event here for send email, ...
+        $this->messageBus->dispatch(new EmailVerificationMessage($user->getEmail()));
 
         $response->setUser($user);
 
