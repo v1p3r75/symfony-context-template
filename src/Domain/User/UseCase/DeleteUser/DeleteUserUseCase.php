@@ -25,8 +25,6 @@ class DeleteUserUseCase
 
         if (!$user) {
             $response->setNotFoundStatus();
-            $response->setMessage("user not found");
-
             return $response;
         }
 

@@ -3,6 +3,7 @@
 namespace App\Domain\User\Response;
 
 use App\Domain\Shared\Response\BaseResponse;
+use App\Domain\User\Entity\User;
 
 class UserResponseDTO extends BaseResponse
 {
@@ -22,10 +23,10 @@ class UserResponseDTO extends BaseResponse
         ];
     }
 
-    public function setData(string $id, string $username, string $email): void
+    public function setUser(User $user): void
     {
-        $this->id = $id;
-        $this->username = $username;
-        $this->email = $email;
+        $this->id = $user->getId();
+        $this->username = $user->getUsername();
+        $this->email = $user->getEmail();
     }
 }

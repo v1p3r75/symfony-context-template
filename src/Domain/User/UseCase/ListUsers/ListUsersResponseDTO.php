@@ -15,7 +15,7 @@ class ListUsersResponseDTO extends BaseResponse
         return $this->users;
     }
 
-    public function setUser(UserResponseDTO $userResponseDTO): void
+    public function addUser(UserResponseDTO $userResponseDTO): void
     {
         $this->users[] = $userResponseDTO->getData();
     }

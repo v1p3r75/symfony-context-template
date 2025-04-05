@@ -54,7 +54,8 @@ abstract class BaseResponse implements JsonSerializable
 
     public function setNotFoundStatus(): void
     {
-        $this->statusCode = Response::HTTP_NOT_FOUND;
+        $this->setStatusCode(Response::HTTP_NOT_FOUND);
+        $this->setMessage("Entity Not Found");
     }
 
     abstract public function getData(): array;

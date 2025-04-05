@@ -22,8 +22,6 @@ readonly class UpdateUserUseCase
 
         if(!$user) {
             $response->setNotFoundStatus();
-            $response->setMessage('user not found');
-
             return $response;
         }
 
@@ -37,7 +35,7 @@ readonly class UpdateUserUseCase
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-        $response->setData($user->getId(), $user->getEmail(), $user->getUsername());
+        $response->setUser($user);
 
         return $response;
     }

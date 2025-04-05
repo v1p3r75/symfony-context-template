@@ -23,11 +23,10 @@ readonly class GetUserUseCase
 
         if (!$user) {
             $response->setNotFoundStatus();
-            $response->setMessage("User not found");
             return $response;
         }
 
-        $response->setData($user->getId(), $user->getUsername(), $user->getEmail());
+        $response->setUser($user);
 
         return $response;
     }

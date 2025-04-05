@@ -21,9 +21,11 @@ readonly class ListUsersUseCase
         $response = new ListUsersResponseDTO();
 
         array_map(function (User $user) use ($response) {
-            $dto = new UserResponseDTO();
-            $dto->setData($user->getId(), $user->getUsername(), $user->getEmail());
-            $response->setUser($dto);
+
+            $userDto = new UserResponseDTO();
+            $userDto->setUser($user);
+            $response->addUser($userDto);
+
         }, $users);
 
         return $response;
